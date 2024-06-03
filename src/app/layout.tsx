@@ -8,6 +8,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import React from "react";
+import Navbar from "~/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Clubs Dash",
@@ -24,10 +25,10 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <SignedOut>
-            <SignInButton />
+            <Navbar profileButton={<SignInButton />} />
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <Navbar profileButton={<UserButton />} />
           </SignedIn>
           {children}
         </body>
