@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,42 +8,41 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  forename String?
-  surname  String?
-  email    String  @unique
-
-  clubs    Club[]
-  projects Project[]
-  website  String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String    @id @default(cuid())
+  forename   String?
+  surname    String?
+  email      String    @unique
+  clubs      Club[]    @relation("Memberships")
+  projects   Project[]
+  ownedClubs Club[]    @relation("ClubOwner")
+  website    String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model Club {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String
-  members     User[]
+  members     User[]   @relation("Memberships")
   tasks       Task[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  owner       User     @relation("ClubOwner", fields: [ownerId], references: [id])
+  ownerId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Project {
-  id          String  @id @default(cuid())
-  user        User    @relation(fields: [userId], references: [id])
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
   userId      String
   name        String
   description String
   link        String
-  task        Task?   @relation(fields: [taskId], references: [id])
+  task        Task?    @relation(fields: [taskId], references: [id])
   taskId      String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Task {
@@ -54,9 +50,8 @@ model Task {
   name        String
   description String
   projects    Project[]
-  Club        Club?     @relation(fields: [clubId], references: [id])
+  club        Club?     @relation(fields: [clubId], references: [id])
   clubId      String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
