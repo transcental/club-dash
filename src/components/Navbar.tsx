@@ -3,11 +3,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import CreateClubModal from "~/components/ClubModal";
 import NavButtons from "~/components/buttons/NavButtons";
 
-export default async function Navbar({
-  profileButton,
-}: {
-  profileButton: React.JSX.Element;
-}) {
+export default async function Navbar() {
   "use server";
   const user = await currentUser();
   // Fetch clubs user is in using prisma
@@ -27,9 +23,9 @@ export default async function Navbar({
     <>
       <header className="flex space-between items-center justify-between m-4">
         <div className="flex gap-4 justify-center items-center">
-          <h1 className="text-2xl font-semibold">Clubs Dash</h1>
+          <h1 className="text-2xl font-semibold text-white">Clubs Dash</h1>
           {user && (
-            <select className="text-black">
+            <select className="text-gray-200 bg-slate-800 p-1 rounded-md">
               <option>Global</option>
               {userData?.clubs?.map((club) => (
                 <option key={club.id}>{club.name}</option>

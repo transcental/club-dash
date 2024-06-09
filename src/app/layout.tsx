@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {
-  ClerkProvider,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import React from "react";
 import Navbar from "~/components/Navbar";
 
@@ -23,13 +17,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <SignedOut>
-            <Navbar profileButton={<SignInButton />} />
-          </SignedOut>
-          <SignedIn>
-            <Navbar profileButton={<UserButton />} />
-          </SignedIn>
+        <body className="bg-slate-600 text-gray-100">
+          <Navbar />
           {children}
         </body>
       </html>

@@ -1,8 +1,8 @@
 "use client";
 
 import { Cog6ToothIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { showModal } from "~/components/ClubModal";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { toggleModal } from "~/components/ClubModal";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 function NavButton({
   Icon,
@@ -25,13 +25,16 @@ export default function NavButtons() {
   return (
     <div className="flex gap-4 justify-center items-center">
       <SignedIn>
-        <NavButton Icon={PlusIcon} onClick={showModal} />
+        <NavButton Icon={PlusIcon} onClick={toggleModal} />
         <NavButton
           Icon={Cog6ToothIcon}
           onClick={() => console.log("Settings")}
         />
         <UserButton />
       </SignedIn>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
     </div>
   );
 }
