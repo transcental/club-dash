@@ -14,11 +14,24 @@ export default async function createClub(formData: FormData) {
   const description = formData.get("description") as string;
 
   // Create a new club in the database
-  await prisma.club.create({
+  const club = await prisma.club.create({
     data: {
       name,
       description,
       ownerId: userId,
+    },
+  });
+
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      clubs: {
+        connect: {
+          id: club.id,
+        },
+      },
     },
   });
 
