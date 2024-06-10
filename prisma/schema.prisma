@@ -24,6 +24,8 @@ model Club {
   id          String   @id @default(cuid())
   name        String   @unique
   description String
+  website     String?
+  logo        String?
   members     User[]   @relation("Memberships")
   tasks       Task[]
   owner       User     @relation("ClubOwner", fields: [ownerId], references: [id])
