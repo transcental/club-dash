@@ -1,8 +1,8 @@
 "use client";
 
 import createClub from "~/actions/createClub";
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Icon from "@hackclub/icons";
 
 export default function CreateClubModal() {
   return (
@@ -10,10 +10,10 @@ export default function CreateClubModal() {
       id="create-club"
       className="bg-slate-500 text-gray-100 p-8 rounded-md max-w-sm"
     >
-      <XMarkIcon
-        className="absolute right-4 top-4 hover:bg-opacity-80 bg-inherit hover:cursor-pointer"
-        width={24}
-        height={24}
+      <Icon
+        glyph="view-close"
+        className="absolute right-4 top-4 hover:cursor-pointer hover:bg-opacity-80 bg-inherit hover:bg-gray-700 rounded-md"
+        size={32}
         onClick={toggleModal}
         // tabIndex={1}
         // onKeyDown={toggleModal}

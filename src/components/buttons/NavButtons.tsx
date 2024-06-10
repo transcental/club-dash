@@ -1,22 +1,22 @@
 "use client";
 
-import { Cog6ToothIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { toggleModal } from "~/components/ClubModal";
+import { toggleModal } from "~/components/components/clubs/ClubModal";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import Icon, { glyphs } from "@hackclub/icons";
 
 function NavButton({
-  Icon,
   onClick,
+  glyph,
 }: {
-  Icon: React.ComponentType<any>;
   onClick: () => void;
+  glyph: keyof typeof glyphs;
 }) {
   return (
     <Icon
-      width={24}
-      height={24}
-      className="hover:cursor-pointer hover:bg-opacity-50 bg-inherit hover:bg-gray-700 rounded-md w-[32] h-[32]"
+      size={32}
+      className="hover:cursor-pointer hover:bg-opacity-50 bg-inherit hover:bg-gray-700 rounded-md"
       onClick={onClick}
+      glyph={glyph}
     />
   );
 }
@@ -25,11 +25,8 @@ export default function NavButtons() {
   return (
     <div className="flex gap-4 justify-center items-center">
       <SignedIn>
-        <NavButton Icon={PlusIcon} onClick={toggleModal} />
-        <NavButton
-          Icon={Cog6ToothIcon}
-          onClick={() => console.log("Settings")}
-        />
+        <NavButton onClick={toggleModal} glyph="plus-fill" />
+        <NavButton onClick={() => console.log("Settings")} glyph="settings" />
         <UserButton />
       </SignedIn>
       <SignedOut>

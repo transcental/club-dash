@@ -38,7 +38,7 @@ export default async function createClub(formData: FormData) {
   // Redirect the user to the dashboard
   return {
     redirect: {
-      destination: "/dashboard",
+      destination: `/club/${club.name}`,
       permanent: false,
     },
   };

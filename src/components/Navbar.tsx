@@ -1,6 +1,6 @@
 import { prisma } from "~/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
-import CreateClubModal from "~/components/ClubModal";
+import CreateClubModal from "~/components/components/clubs/ClubModal";
 import NavButtons from "~/components/buttons/NavButtons";
 
 export default async function Navbar() {
