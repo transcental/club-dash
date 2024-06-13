@@ -1,8 +1,9 @@
 "use client";
 
-import { toggleModal } from "~/components/components/clubs/ClubModal";
+import { toggleModal as toggleClubCreationModal } from "~/components/components/clubs/ClubModal";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Icon, { glyphs } from "@hackclub/icons";
+import { toggleModal as toggleTaskCreationModal } from "~/components/components/clubs/CreateTaskModal";
 
 function NavButton({
   onClick,
@@ -25,7 +26,10 @@ export default function NavButtons() {
   return (
     <div className="flex gap-4 justify-center items-center">
       <SignedIn>
-        <NavButton onClick={toggleModal} glyph="plus-fill" />
+        {}
+        <NavButton onClick={toggleClubCreationModal} glyph="plus-fill" />
+        <NavButton onClick={toggleTaskCreationModal} glyph="post-fill" />
+
         <NavButton onClick={() => console.log("Settings")} glyph="settings" />
         <UserButton />
       </SignedIn>
