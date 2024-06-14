@@ -1,12 +1,11 @@
 import { prisma } from "~/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
-import CreateClubModal from "~/components/components/clubs/ClubModal";
 import NavButtons from "~/components/buttons/NavButtons";
 
 export default async function Navbar() {
   "use server";
   const user = await currentUser();
-  // Fetch clubs user is in using prisma
+
   let userData;
   if (user) {
     userData = await prisma.user.findUnique({
@@ -14,7 +13,11 @@ export default async function Navbar() {
         id: user.id,
       },
       include: {
-        clubs: true,
+        clubs: {
+          include: {
+            owner: true,
+          },
+        },
       },
     });
   }
@@ -33,9 +36,8 @@ export default async function Navbar() {
             </select>
           )}
         </div>
-        <NavButtons />
+        <NavButtons userData={userData} />
       </header>
-      <CreateClubModal />
     </>
   );
 }

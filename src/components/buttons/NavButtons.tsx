@@ -1,9 +1,15 @@
 "use client";
 
-import { toggleModal as toggleClubCreationModal } from "~/components/components/clubs/ClubModal";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Icon, { glyphs } from "@hackclub/icons";
-import { toggleModal as toggleTaskCreationModal } from "~/components/components/clubs/CreateTaskModal";
+
+import CreateClubModal, {
+  toggleModal as toggleClubCreationModal,
+} from "~/components/clubs/ClubModal";
+import CreateTaskModal, {
+  toggleModal as toggleTaskCreationModal,
+} from "~/components/clubs/CreateTaskModal";
+import { Club, User } from "@prisma/client";
 
 function NavButton({
   onClick,
@@ -22,7 +28,20 @@ function NavButton({
   );
 }
 
-export default function NavButtons() {
+type UserWithClubWithLeaderOrUndefined =
+  | (User & {
+      clubs: (Club & {
+        owner: User;
+      })[];
+    })
+  | null
+  | undefined;
+
+export default function NavButtons({
+  userData,
+}: {
+  userData: UserWithClubWithLeaderOrUndefined;
+}) {
   return (
     <div className="flex gap-4 justify-center items-center">
       <SignedIn>
@@ -32,6 +51,8 @@ export default function NavButtons() {
 
         <NavButton onClick={() => console.log("Settings")} glyph="settings" />
         <UserButton />
+        <CreateClubModal />
+        {userData != undefined && <CreateTaskModal userData={userData} />}
       </SignedIn>
       <SignedOut>
         <SignInButton />

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Icon from "@hackclub/icons";
 import UpdateClubModal, {
   toggleModal,
-} from "~/components/components/clubs/ClubUpdateModal";
+} from "~/components/clubs/ClubUpdateModal";
 
 type ClubWithMembersOwnerTasksProjects = Club & {
   members: User[];

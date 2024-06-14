@@ -1,5 +1,5 @@
 import { prisma } from "~/lib/prisma";
-import Sidebar from "~/components/components/clubs/Sidebar";
+import Sidebar from "~/components/clubs/Sidebar";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { club: string } }) {
