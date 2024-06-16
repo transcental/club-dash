@@ -9,7 +9,10 @@ import CreateClubModal, {
 import CreateTaskModal, {
   toggleModal as toggleTaskCreationModal,
 } from "~/components/clubs/CreateTaskModal";
-import { Club, User } from "@prisma/client";
+import { Club, Task, User } from "@prisma/client";
+import CreateProjectModal, {
+  toggleModal as toggleProjectCreationModal,
+} from "~/components/clubs/CreateProjectModal";
 
 function NavButton({
   onClick,
@@ -32,6 +35,7 @@ type UserWithClubWithLeaderOrUndefined =
   | (User & {
       clubs: (Club & {
         owner: User;
+        tasks: Task[];
       })[];
     })
   | null
@@ -45,14 +49,15 @@ export default function NavButtons({
   return (
     <div className="flex gap-4 justify-center items-center">
       <SignedIn>
-        {}
         <NavButton onClick={toggleClubCreationModal} glyph="plus-fill" />
-        <NavButton onClick={toggleTaskCreationModal} glyph="post-fill" />
+        <NavButton onClick={toggleTaskCreationModal} glyph="copy" />
+        <NavButton onClick={toggleProjectCreationModal} glyph="post-fill" />
 
         <NavButton onClick={() => console.log("Settings")} glyph="settings" />
         <UserButton />
         <CreateClubModal />
-        {userData != undefined && <CreateTaskModal userData={userData} />}
+        {userData?.clubs && <CreateProjectModal userData={userData} />}
+        {userData?.clubs && <CreateTaskModal userData={userData} />}
       </SignedIn>
       <SignedOut>
         <SignInButton />

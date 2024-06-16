@@ -40,7 +40,8 @@ model Project {
   userId      String
   name        String
   description String
-  link        String
+  link        String?
+  gitRepo     String?
   task        Task?    @relation(fields: [taskId], references: [id])
   taskId      String?
   createdAt   DateTime @default(now())

@@ -16,6 +16,7 @@ export default async function Navbar() {
         clubs: {
           include: {
             owner: true,
+            tasks: true,
           },
         },
       },
