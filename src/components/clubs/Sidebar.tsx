@@ -10,7 +10,7 @@ import UpdateClubModal, {
 type ClubWithMembersOwnerTasksProjects = Club & {
   members: User[];
   owner: User;
-  tasks: Task & { projects: Project[] }[];
+  tasks: (Task & { projects: Project[] })[];
 };
 
 export default async function Sidebar({

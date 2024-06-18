@@ -12,26 +12,10 @@ export default async function createProject(formData: FormData) {
 
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
-  const clubId = formData.get("club") as string;
   const link = formData.get("link") as string;
   const taskId = formData.get("task") as string;
   const gitRepo = formData.get("gitRepo") as string;
-
-  if (clubId) {
-    const club = await prisma.club.findUnique({
-      where: {
-        id: clubId,
-      },
-      include: {
-        owner: true,
-      },
-    });
-
-    if (!club) {
-      throw new Error("Club not found");
-    }
-  }
-
+  
   const newUser = await prisma.user.update({
     where: {
       id: userId,
@@ -42,8 +26,8 @@ export default async function createProject(formData: FormData) {
           name,
           description,
           link,
-          taskId,
-          gitRepo,
+          taskId: taskId !== "0" ? taskId : undefined,
+          gitRepo
         },
       },
     },
